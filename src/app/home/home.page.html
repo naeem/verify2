@@ -4,13 +4,76 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      Home
+      Search tawakul.org
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>If you get lost, the
-    <a target="_blank" rel="noopener" href="https://ionicframework.com/docs">docs</a> will be your guide.</p>
+
+  <ion-list>
+    <div *ngIf="results.start">
+      <ion-item-divider>
+        <ion-label>
+          Results
+        </ion-label>
+      </ion-item-divider>
+      <ion-card color="green">
+        <ion-card-title>Found {{results.found}}</ion-card-title>
+        <ion-card-content>
+          <ion-list>
+            <ion-item *ngFor="let organisation of results.organisations">
+              Exists in {{organisation}}
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <ion-item-divider>
+      <ion-label>
+        Search by ID Number
+      </ion-label>
+    </ion-item-divider>
+    <form form [formGroup]="form1">
+      <ion-card>
+        <ion-card-content>
+          <ion-item>
+            <ion-label position="stack">ID Number</ion-label>
+            <ion-input formControlName="id_number" type="number"></ion-input>
+          </ion-item>
+        </ion-card-content>
+        <ion-button color="primary" size="large" expand="block" [disabled]="!form1.valid" (click)="logForm1()">Search</ion-button>
+      </ion-card>
+    </form>
+
+    <ion-item-divider>
+      <ion-label>
+        Search by Personal Details
+      </ion-label>
+    </ion-item-divider>
+    <form [formGroup]="form2">
+      <ion-card>
+        <ion-card-content>
+          <ion-item>
+            <ion-label position="stack">Date of Birth</ion-label>
+            <ion-input formControlName="dob" type="date"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stack">Surname</ion-label>
+            <ion-input formControlName="surname" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stack">Gender</ion-label>
+            <ion-select formControlName="gender">
+              <ion-select-option>M</ion-select-option>
+              <ion-select-option>F</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-card-content>
+        <ion-button color="primary" size="large" expand="block" [disabled]="!form2.valid" (click)="logForm2()">Search</ion-button>
+      </ion-card>
+    </form>
+  </ion-list>
+
 </ion-content>
